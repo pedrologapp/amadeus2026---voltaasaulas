@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from './supabaseClient';
 
-// CSS minimalista e profissional
+// CSS minimalista e profissional com fundo azul
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -14,13 +14,14 @@ const styles = `
   .app-container {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     min-height: 100vh;
-    background: #fafafa;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #1e40af 100%);
     color: #111;
   }
 
   /* Header */
   .header {
-    background: #fff;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid #eaeaea;
     padding: 16px 24px;
     position: sticky;
@@ -39,16 +40,17 @@ const styles = `
   .logo {
     font-weight: 600;
     font-size: 1rem;
-    color: #111;
+    color: #1e3a5f;
     letter-spacing: -0.3px;
   }
 
   .header-badge {
     font-size: 0.75rem;
-    color: #666;
-    background: #f5f5f5;
+    color: #1e40af;
+    background: #dbeafe;
     padding: 6px 12px;
     border-radius: 100px;
+    font-weight: 500;
   }
 
   /* Main */
@@ -70,11 +72,12 @@ const styles = `
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    color: #0070f3;
-    background: #e8f4ff;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
     padding: 6px 14px;
     border-radius: 100px;
     margin-bottom: 20px;
+    backdrop-filter: blur(10px);
   }
 
   .hero h1 {
@@ -83,12 +86,12 @@ const styles = `
     letter-spacing: -1px;
     line-height: 1.2;
     margin-bottom: 12px;
-    color: #111;
+    color: #fff;
   }
 
   .hero-subtitle {
     font-size: 1rem;
-    color: #666;
+    color: rgba(255,255,255,0.9);
     font-weight: 400;
     margin-bottom: 32px;
   }
@@ -107,23 +110,25 @@ const styles = `
     align-items: center;
     gap: 6px;
     font-size: 0.85rem;
-    color: #444;
-    background: #fff;
-    border: 1px solid #eaeaea;
+    color: #1e3a5f;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid rgba(255,255,255,0.3);
     padding: 10px 16px;
     border-radius: 8px;
+    backdrop-filter: blur(10px);
   }
 
   .info-pill svg {
     width: 16px;
     height: 16px;
-    color: #888;
+    color: #2563eb;
   }
 
   /* O que esperar - Card de destaques */
   .highlights-card {
-    background: #fff;
-    border: 1px solid #eaeaea;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
     border-radius: 12px;
     padding: 24px;
     margin-bottom: 24px;
@@ -133,7 +138,7 @@ const styles = `
   .highlights-card h3 {
     font-size: 0.9rem;
     font-weight: 600;
-    color: #111;
+    color: #1e3a5f;
     margin-bottom: 16px;
     display: flex;
     align-items: center;
@@ -143,7 +148,7 @@ const styles = `
   .highlights-card h3 svg {
     width: 18px;
     height: 18px;
-    color: #0070f3;
+    color: #2563eb;
   }
 
   .highlights-grid {
@@ -157,10 +162,10 @@ const styles = `
     align-items: flex-start;
     gap: 10px;
     padding: 12px;
-    background: #f9fafb;
+    background: #f0f7ff;
     border-radius: 8px;
     font-size: 0.85rem;
-    color: #444;
+    color: #1e3a5f;
     line-height: 1.4;
   }
 
@@ -175,16 +180,17 @@ const styles = `
   .highlights-more {
     margin-top: 16px;
     padding-top: 16px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #e0e7ef;
     text-align: center;
     font-size: 0.85rem;
-    color: #666;
+    color: #64748b;
     font-style: italic;
   }
 
   /* Notice */
   .notice {
-    background: #fffbe6;
+    background: rgba(255,251,230,0.95);
+    backdrop-filter: blur(10px);
     border: 1px solid #ffe58f;
     border-radius: 8px;
     padding: 14px 18px;
@@ -205,22 +211,25 @@ const styles = `
   }
 
   .notice-blue {
-    background: #eff6ff;
+    background: rgba(239,246,255,0.95);
     border: 1px solid #bfdbfe;
     color: #1e40af;
   }
 
   /* Form Card */
   .form-card {
-    background: #fff;
-    border: 1px solid #eaeaea;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
     border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
   }
 
   .form-header {
     padding: 24px 28px;
     border-bottom: 1px solid #eaeaea;
+    background: #f8fafc;
   }
 
   .form-header h2 {
@@ -228,11 +237,12 @@ const styles = `
     font-weight: 600;
     letter-spacing: -0.3px;
     margin-bottom: 4px;
+    color: #1e3a5f;
   }
 
   .form-header p {
     font-size: 0.85rem;
-    color: #666;
+    color: #64748b;
   }
 
   .form-body {
@@ -278,8 +288,8 @@ const styles = `
 
   .input:focus {
     outline: none;
-    border-color: #111;
-    box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
   }
 
   .input::placeholder {
@@ -324,7 +334,7 @@ const styles = `
   }
 
   .dropdown-item:hover {
-    background: #f9f9f9;
+    background: #f0f7ff;
   }
 
   .dropdown-item-name {
@@ -387,7 +397,7 @@ const styles = `
     width: 18px;
     height: 18px;
     border: 2px solid #eee;
-    border-top-color: #111;
+    border-top-color: #2563eb;
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
   }
@@ -424,7 +434,7 @@ const styles = `
     font-size: 0.95rem;
     font-weight: 500;
     font-family: inherit;
-    background: #111;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -437,7 +447,9 @@ const styles = `
   }
 
   .btn-submit:hover:not(:disabled) {
-    background: #333;
+    background: linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.3);
   }
 
   .btn-submit:disabled {
@@ -461,7 +473,7 @@ const styles = `
     align-items: center;
     justify-content: center;
     padding: 24px;
-    background: #fafafa;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #1e40af 100%);
   }
 
   .success-card {
@@ -472,6 +484,7 @@ const styles = `
     max-width: 420px;
     width: 100%;
     text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
   }
 
   .success-icon {
@@ -492,6 +505,7 @@ const styles = `
     font-weight: 600;
     letter-spacing: -0.5px;
     margin-bottom: 8px;
+    color: #1e3a5f;
   }
 
   .success-card > p {
@@ -500,7 +514,7 @@ const styles = `
   }
 
   .success-details {
-    background: #fafafa;
+    background: #f8fafc;
     border-radius: 8px;
     padding: 20px;
     margin: 28px 0;
@@ -524,7 +538,7 @@ const styles = `
   }
 
   .success-details .detail-value {
-    color: #111;
+    color: #1e3a5f;
     font-weight: 500;
   }
 
@@ -547,7 +561,7 @@ const styles = `
     font-weight: 500;
     font-family: inherit;
     background: #fff;
-    color: #111;
+    color: #1e3a5f;
     border: 1px solid #ddd;
     border-radius: 8px;
     cursor: pointer;
@@ -555,7 +569,8 @@ const styles = `
   }
 
   .btn-secondary:hover {
-    background: #f5f5f5;
+    background: #f0f7ff;
+    border-color: #2563eb;
   }
 
   /* Responsive */
@@ -844,7 +859,7 @@ function VoltaAsAulas2026() {
           {/* Hero */}
           <section className="hero">
             <span className="event-tag">Ano Letivo 2026</span>
-            <h1>Volta às Aulas</h1>
+            <h1>Volta às Aulas 2026<br/>Escola Amadeus</h1>
             <p className="hero-subtitle">Reunião de Pais e Responsáveis</p>
 
             <div className="event-info">
