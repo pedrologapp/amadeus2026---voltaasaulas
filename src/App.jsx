@@ -891,7 +891,7 @@ function VoltaAsAulas2026() {
               </div>
               <div className="highlight-item">
                 <Icon.CheckCircle />
-                <span>Conhecer as professoras</span>
+                <span>Conhecer os(as) professores(as) </span>
               </div>
               <div className="highlight-item">
                 <Icon.CheckCircle />
@@ -1037,4 +1037,5 @@ function VoltaAsAulas2026() {
 }
 
 export default VoltaAsAulas2026;
+
 
